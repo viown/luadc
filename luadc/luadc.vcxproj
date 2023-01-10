@@ -137,10 +137,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bytecode.cpp" />
     <ClCompile Include="luadc.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Opcode.h" />
+    <ClInclude Include="bytecode.h" />
+    <ClInclude Include="header.h" />
+    <ClInclude Include="instruction.h" />
+    <ClInclude Include="opcode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

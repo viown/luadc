@@ -1,5 +1,7 @@
 #ifndef LUADC_OPCODE
 #define LUADC_OPCODE
+#include <map>
+#include <string>
 
 enum Opcode : unsigned char {
 	MOVE,		// 0
@@ -40,6 +42,46 @@ enum Opcode : unsigned char {
 	CLOSE,		// 35
 	CLOSURE,	// 36
 	VARARG		// 37
+};
+
+static const std::map<Opcode, std::string> opcode_strings = {
+	{MOVE, "MOVE"},
+	{LOADK, "LOADK"},
+	{LOADBOOL, "LOADBOOL"},
+	{LOADNIL, "LOADNIL"},
+	{GETUPVAL, "GETUPVAL"},
+	{GETGLOBAL, "GETGLOBAL"},
+	{GETTABLE, "GETTABLE"},
+	{SETGLOBAL, "SETGLOBAL"},
+	{SETUPVAL, "SETUPVAL"},
+	{SETTABLE, "SETTABLE"},
+	{NEWTABLE, "NEWTABLE"},
+	{SELF, "SELF"},
+	{ADD, "ADD"},
+	{SUB, "SUB"},
+	{MUL, "MUL"},
+	{DIV, "DIV"},
+	{MOD, "MOD"},
+	{POW, "POW"},
+	{UNM, "UNM"},
+	{NOT, "NOT"},
+	{LEN, "LEN"},
+	{CONCAT, "CONCAT"},
+	{JMP, "JMP"},
+	{EQ, "EQ"},
+	{LT, "LT"},
+	{LE, "LE"},
+	{TEST, "TEST"},
+	{TESTSET, "TESTSET"},
+	{CALL, "CALL"},
+	{TAILCALL, "TAILCALL"},
+	{RETURN, "RETURN"},
+	{FORLOOP, "FORLOOP"},
+	{TFORLOOP, "TFORLOOP"},
+	{SETLIST, "SETLIST"},
+	{CLOSE, "CLOSE"},
+	{CLOSURE, "CLOSURE"},
+	{VARARG, "VARARG"}
 };
 
 #endif

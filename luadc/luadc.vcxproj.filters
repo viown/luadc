@@ -18,9 +18,21 @@
     <ClCompile Include="luadc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="bytecode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Opcode.h">
+    <ClInclude Include="opcode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bytecode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="instruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
