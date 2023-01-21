@@ -21,36 +21,36 @@ void verify_header(LuaHeader header) {
 	}
 }
 
-LuaPrototype::LuaPrototype(std::string filename) {
+LuaPrototype parseFile(std::string filename) {
+	LuaPrototype prototype;
+
 	std::fstream file(filename);
 
 	int currentByte = 0;
 	while ((currentByte = file.get()) != -1) {
-		this->bytecode.push_back(currentByte);
+		prototype.bytecode.push_back(currentByte);
 	}
 
 	file.close();
 
-	memcpy((unsigned char*)&this->header, &this->bytecode[0], 12);
-	verify_header(this->header);
+	memcpy((unsigned char*)&prototype.header, &prototype.bytecode[0], 12);
+	verify_header(prototype.header);
 
-	this->function_block = parseFunctionBlock(&this->bytecode[12]);
-}
+	prototype.function_block = parseFunctionBlock(&prototype.bytecode[12]);
 
-unsigned char* LuaPrototype::get_bytecode_at_loc(int loc) {
-	return &this->bytecode[loc];
+	return prototype;
 }
 
 /* output disassembled code */
-void LuaPrototype::disassemble_output() {
+void disassemble_output(LuaPrototype prototype) {
 
-	std::cout << "Source name: " << this->function_block.source_name.string << '\n';
+	std::cout << "Source name: " << prototype.function_block.source_name.string << '\n';
 
 	std::cout << '\n';
 
 	std::cout << "; constants\n";
-	for (size_t i = 0; i < this->function_block.constant_list.constant_size; ++i) {
-		Constant constant = this->function_block.constant_list.constants[i];
+	for (size_t i = 0; i < prototype.function_block.constant_list.constant_size; ++i) {
+		Constant constant = prototype.function_block.constant_list.constants[i];
 
 		if (constant.type == LUA_TNUMBER) {
 			std::cout << "CONST (NUMBER, " << constant.number << ")";
@@ -69,7 +69,7 @@ void LuaPrototype::disassemble_output() {
 
 	std::cout << "\n; code\n";
 
-	std::vector<Instruction> instructions = this->function_block.instruction_list.instructions;
+	std::vector<Instruction> instructions = prototype.function_block.instruction_list.instructions;
 	for (int i = 0; i < instructions.size(); ++i) {
 		Instruction instruction = instructions[i];
 		OpcodeInfo opcode_info = opcodes.at(instruction.opcode);

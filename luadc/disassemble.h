@@ -73,19 +73,14 @@ struct FunctionBlock {
 
 FunctionBlock parseFunctionBlock(unsigned char* block);
 
-class LuaPrototype {
-private:
+struct LuaPrototype {
 	std::vector<unsigned char> bytecode;
 
 	LuaHeader header;
 	FunctionBlock function_block; /* top-level function */
-public:
-	LuaPrototype(std::string file);
-
-	LuaHeader get_header() { return this->header; }
-	unsigned char* get_bytecode_at_loc(int loc);
-
-	void disassemble_output();
 };
+
+LuaPrototype parseFile(std::string filename);
+void disassemble_output(LuaPrototype prototype);
 
 #endif

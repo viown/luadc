@@ -11,8 +11,8 @@
 
 int main(int argc, char** argv)
 {
-    LuaPrototype b(argv[1]);
+    LuaPrototype b = parseFile(argv[1]);
 
-    b.disassemble_output();
+    disassemble_output(b);
     return 0;
 }
