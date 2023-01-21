@@ -8,10 +8,10 @@
 #include "opcode.h"
 
 enum ConstantType : unsigned char {
-	LUA_TNIL,
-	LUA_TBOOLEAN,
-	LUA_TNUMBER,
-	LUA_TSTRING
+	LUA_TNIL=0,
+	LUA_TBOOLEAN=1,
+	LUA_TNUMBER=3,
+	LUA_TSTRING=4,
 };
 
 struct String {
@@ -20,11 +20,11 @@ struct String {
 };
 
 struct Constant {
-	ConstantType constant_type;
+	ConstantType type;
 	union {
 		/* 
 		* A nil value is not included because it only holds a singular value
-		* which constant_type holds
+		* which constant_type represents
 		*/
 		bool boolean;
 		double number;
@@ -33,10 +33,19 @@ struct Constant {
 	};
 };
 
+struct Instruction {
+	Opcode opcode;
+	int A;
+	int B;
+	int C;
+
+	int Bx;
+	int sBx;
+};
 
 struct InstructionList {
 	int instruction_size;
-	std::vector<int> instructions;
+	std::vector<Instruction> instructions;
 };
 
 struct ConstantList {
@@ -57,23 +66,26 @@ struct FunctionBlock {
 	InstructionList instruction_list;
 	ConstantList constant_list;
 
-	int function_blocks_size;
-	std::vector<FunctionBlock> function_blocks;
+	size_t function_prototypes_size;
+	std::vector<FunctionBlock> function_prototypes;
 	
 };
 
-class LuaBytecode {
+FunctionBlock parseFunctionBlock(unsigned char* block);
+
+class LuaPrototype {
 private:
 	std::vector<unsigned char> bytecode;
 
 	LuaHeader header;
 	FunctionBlock function_block; /* top-level function */
 public:
-	LuaBytecode(std::string file);
+	LuaPrototype(std::string file);
 
 	LuaHeader get_header() { return this->header; }
+	unsigned char* get_bytecode_at_loc(int loc);
 
-	FunctionBlock parseFunctionBlock(int addr);
+	void disassemble_output();
 };
 
 #endif

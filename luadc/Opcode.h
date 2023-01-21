@@ -1,5 +1,6 @@
 #ifndef LUADC_OPCODE
 #define LUADC_OPCODE
+#include "instruction.h"
 #include <map>
 #include <string>
 
@@ -44,44 +45,51 @@ enum Opcode : unsigned char {
 	VARARG		// 37
 };
 
-static const std::map<Opcode, std::string> opcode_strings = {
-	{MOVE, "MOVE"},
-	{LOADK, "LOADK"},
-	{LOADBOOL, "LOADBOOL"},
-	{LOADNIL, "LOADNIL"},
-	{GETUPVAL, "GETUPVAL"},
-	{GETGLOBAL, "GETGLOBAL"},
-	{GETTABLE, "GETTABLE"},
-	{SETGLOBAL, "SETGLOBAL"},
-	{SETUPVAL, "SETUPVAL"},
-	{SETTABLE, "SETTABLE"},
-	{NEWTABLE, "NEWTABLE"},
-	{SELF, "SELF"},
-	{ADD, "ADD"},
-	{SUB, "SUB"},
-	{MUL, "MUL"},
-	{DIV, "DIV"},
-	{MOD, "MOD"},
-	{POW, "POW"},
-	{UNM, "UNM"},
-	{NOT, "NOT"},
-	{LEN, "LEN"},
-	{CONCAT, "CONCAT"},
-	{JMP, "JMP"},
-	{EQ, "EQ"},
-	{LT, "LT"},
-	{LE, "LE"},
-	{TEST, "TEST"},
-	{TESTSET, "TESTSET"},
-	{CALL, "CALL"},
-	{TAILCALL, "TAILCALL"},
-	{RETURN, "RETURN"},
-	{FORLOOP, "FORLOOP"},
-	{TFORLOOP, "TFORLOOP"},
-	{SETLIST, "SETLIST"},
-	{CLOSE, "CLOSE"},
-	{CLOSURE, "CLOSURE"},
-	{VARARG, "VARARG"}
+struct OpcodeInfo {
+	std::string name;
+	InstructionArgType arg_type;
+	int arg_size;
+};
+
+static const std::map<Opcode, OpcodeInfo> opcodes = {
+	{MOVE,		{"MOVE",		iABC,	2}},
+	{LOADK,		{"LOADK",		iABx,	2}},
+	{LOADBOOL,	{"LOADBOOL",	iABC,	3}},
+	{LOADNIL,	{"LOADNIL",		iABC,	2}},
+	{GETUPVAL,	{"GETUPVAL",	iABC,	2}},
+	{GETGLOBAL, {"GETGLOBAL",	iABx,	2}},
+	{GETTABLE,	{"GETTABLE",	iABC,	3}},
+	{SETGLOBAL, {"SETGLOBAL",	iABx,	2}},
+	{SETUPVAL,	{"SETUPVAL",	iABC,	2}},
+	{SETTABLE,	{"SETTABLE",	iABC,	3}},
+	{NEWTABLE,	{"NEWTABLE",	iABC,	3}},
+	{SELF,		{"SELF",		iABC,	3}},
+	{ADD,		{"ADD",			iABC,	3}},
+	{SUB,		{"SUB",			iABC,	3}},
+	{MUL,		{"MUL",			iABC,	3}},
+	{DIV,		{"DIV",			iABC,	3}},
+	{MOD,		{"MOD",			iABC,	3}},
+	{POW,		{"POW",			iABC,	3}},
+	{UNM,		{"UNM",			iABC,	2}},
+	{NOT,		{"NOT",			iABC,	2}},
+	{LEN,		{"LEN",			iABC,	2}},
+	{CONCAT,	{"CONCAT",		iABC,	3}},
+	{JMP,		{"JMP",			iAsBx,	1}},
+	{EQ,		{"EQ",			iABC,	3}},
+	{LT,		{"LT",			iABC,	3}},
+	{LE,		{"LE",			iABC,	3}},
+	{TEST,		{"TEST",		iABC,	2}},
+	{TESTSET,	{"TESTSET",		iABC,	3}},
+	{CALL,		{"CALL",		iABC,	3}},
+	{TAILCALL,	{"TAILCALL",	iABC,	3}},
+	{RETURN,	{"RETURN",		iABC,	2}},
+	{FORLOOP,	{"FORLOOP",		iAsBx,	2}},
+	{FORPREP,	{"FORPREP",		iAsBx,	2}},
+	{TFORLOOP,	{"TFORLOOP",	iABC,	2}},
+	{SETLIST,	{"SETLIST",		iABC,	3}},
+	{CLOSE,		{"CLOSE",		iABC,	1}},
+	{CLOSURE,	{"CLOSURE",		iABx,	2}},
+	{VARARG,	{"VARARG",		iABC,	2}}
 };
 
 #endif

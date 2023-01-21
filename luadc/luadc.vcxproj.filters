@@ -18,7 +18,7 @@
     <ClCompile Include="luadc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bytecode.cpp">
+    <ClCompile Include="disassemble.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="header.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bytecode.h">
+    <ClInclude Include="disassemble.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="instruction.h">

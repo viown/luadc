@@ -137,11 +137,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bytecode.cpp" />
+    <ClCompile Include="disassemble.cpp" />
     <ClCompile Include="luadc.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bytecode.h" />
+    <ClInclude Include="disassemble.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="instruction.h" />
     <ClInclude Include="opcode.h" />
