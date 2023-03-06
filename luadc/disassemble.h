@@ -23,8 +23,8 @@ struct Constant {
 	ConstantType type;
 	union {
 		/* 
-		* A nil value is not included because it only holds a singular value
-		* which constant_type represents
+		* A nil value is not included because it only holds a single value
+		* which `type` represents
 		*/
 		bool boolean;
 		double number;
@@ -53,6 +53,27 @@ struct ConstantList {
 	std::vector<Constant> constants;
 };
 
+struct SourcelinePositionList {
+	int sizelineinfo;
+	std::vector<int> positions;
+};
+
+struct Local {
+	String local_variable_name;
+	int start_var_scope;
+	int end_var_scope;
+};
+
+struct LocalList {
+	int sizelocvars;
+	std::vector<Local> locals;
+};
+
+struct UpvalueList {
+	int sizeupvalues;
+	std::vector<String> upvalue_name;
+};
+
 struct FunctionBlock {
 	String source_name;
 
@@ -68,10 +89,14 @@ struct FunctionBlock {
 
 	size_t function_prototypes_size;
 	std::vector<FunctionBlock> function_prototypes;
+
+	/* debug info */
+	SourcelinePositionList source_line_position_list;
+	LocalList local_list;
+	UpvalueList upvalue_list;
 	
 };
 
-FunctionBlock parseFunctionBlock(unsigned char* block);
 
 struct LuaPrototype {
 	std::vector<unsigned char> bytecode;
@@ -81,6 +106,7 @@ struct LuaPrototype {
 };
 
 LuaPrototype parseFile(std::string filename);
+FunctionBlock parseFunctionBlock(unsigned char* block);
 void disassemble_output(LuaPrototype prototype);
 
 #endif

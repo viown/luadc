@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Executables
+*.out
+
 # User-specific files
 *.rsuser
 *.suo
@@ -57,6 +60,15 @@ dlldata.c
 
 # Benchmark Results
 BenchmarkDotNet.Artifacts/
+
+# cmake
+Makefile
+*CMakeFiles*
+CMakeCache.txt
+*cmake_install.cmake*
+CPackConfig.cmake
+CPackSourceConfig.cmake
+compile_commands.json
 
 # .NET Core
 project.lock.json

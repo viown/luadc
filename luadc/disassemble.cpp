@@ -1,6 +1,7 @@
 #include "disassemble.h"
 #include <iostream>
 #include <stdio.h>
+#include <cstring>
 
 void verify_header(LuaHeader header) {
 	if (header.signature != 0x61754C1B) {
@@ -8,7 +9,8 @@ void verify_header(LuaHeader header) {
 		exit(1);
 	}
 	else if (header.size_t_size != sizeof(size_t)) {
-		std::cerr << "size_t mismatch! Expected " << sizeof(size_t) << " instead got " << header.size_t_size << '\n';
+		/* wrong bit target */
+		std::cerr << "size_t mismatch! Expected " << sizeof(size_t) << " instead got " << static_cast<int>(header.size_t_size) << '\n';
 		exit(1);
 	}
 	else if (header.version != 0x51) {
